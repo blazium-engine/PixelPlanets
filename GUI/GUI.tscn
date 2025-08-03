@@ -1,16 +1,16 @@
 [gd_scene load_steps=21 format=3 uid="uid://do1rqlsl7j8w1"]
 
-[ext_resource type="Script" path="res://GUI/GUI.gd" id="1"]
+[ext_resource type="Script" uid="uid://jy478t64yvec" path="res://GUI/GUI.gd" id="1"]
 [ext_resource type="Theme" uid="uid://bv2fro5jwglrq" path="res://GUI/Theme.tres" id="2"]
 [ext_resource type="PackedScene" uid="uid://crdxh2i35dorc" path="res://Planets/Rivers/Rivers.tscn" id="3"]
 [ext_resource type="Texture2D" uid="uid://rso35gm4eqyp" path="res://stars.png" id="4"]
-[ext_resource type="Script" path="res://GUI/SpritesheetPopup.gd" id="5"]
+[ext_resource type="Script" uid="uid://c300yb7boh27s" path="res://GUI/SpritesheetPopup.gd" id="5"]
 [ext_resource type="Texture2D" uid="uid://csvjlkmt71tp0" path="res://GUI/progress-under.png" id="6"]
 [ext_resource type="Texture2D" uid="uid://c3dko8im0fvb5" path="res://GUI/progress-over.png" id="7"]
 [ext_resource type="PackedScene" uid="uid://blrnap0k35tav" path="res://GUI/ColorPickerButton.tscn" id="8"]
 [ext_resource type="Material" uid="uid://bhb7yqvdm2fuf" path="res://GUI/StarParticles.tres" id="9"]
-[ext_resource type="Script" path="res://GUI/GifPopup.gd" id="10"]
-[ext_resource type="Script" path="res://GUI/ImportExportPopup.gd" id="11"]
+[ext_resource type="Script" uid="uid://c0cf0pwjh5y0k" path="res://GUI/GifPopup.gd" id="10"]
+[ext_resource type="Script" uid="uid://5oer0gb3ntig" path="res://GUI/ImportExportPopup.gd" id="11"]
 
 [sub_resource type="Shader" id="1"]
 code = "shader_type canvas_item;

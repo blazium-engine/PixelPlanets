@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://blrnap0k35tav"]
 
-[ext_resource type="Script" path="res://GUI/ColorPickerButton.gd" id="1"]
+[ext_resource type="Script" uid="uid://cjgvvxyp2mkt7" path="res://GUI/ColorPickerButton.gd" id="1"]
 
 [sub_resource type="StyleBoxFlat" id="3"]
 resource_local_to_scene = true
