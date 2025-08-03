@@ -7,7 +7,7 @@ signal set_colors
 
 var current_colors = []
 
-func set_current_colors(colors):
+func set_current_colors(colors) -> void:
 	current_colors = colors
 	textedit.text = ""
 	var index = 0
@@ -17,16 +17,16 @@ func set_current_colors(colors):
 			textedit.text += "\n"
 		index += 1
 
-func show_popup():
+func show_popup() -> void:
 	visible = true
 
-func _on_CloseButton_pressed():
+func _on_CloseButton_pressed() -> void:
 	visible = false
 
-func _on_CopyToClipboard_pressed():
+func _on_CopyToClipboard_pressed() -> void:
 	DisplayServer.clipboard_set(textedit.text)
 
-func _on_PasteFromClipboard_pressed():
+func _on_PasteFromClipboard_pressed() -> void:
 	textedit.text = DisplayServer.clipboard_get()
 
 func _convert_to_colors():
@@ -40,7 +40,7 @@ func _convert_to_colors():
 		colors.append(Color())
 	return colors
 
-func _on_ApplyColors_pressed():
+func _on_ApplyColors_pressed() -> void:
 	var colors = _convert_to_colors()
 	emit_signal("set_colors", colors)
 	visible = false

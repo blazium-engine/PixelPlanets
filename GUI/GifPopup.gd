@@ -13,15 +13,15 @@ signal cancel_gif
 @onready var length = 10
 @onready var frame_delay = 10.0 / 600.0
 
-func _on_CancelButton_pressed():
+func _on_CancelButton_pressed() -> void:
 	visible = false
 	emit_signal("cancel_gif")
 
-func _on_ExportButton_pressed():
+func _on_ExportButton_pressed() -> void:
 	progressbar.visible = true
 	get_parent().export_gif(frames, frame_delay, progressbar)
 
-func _on_FrameDelay_value_changed(value):
+func _on_FrameDelay_value_changed(value) -> void:
 	frame_delay = value
 	length = frames * frame_delay
 	
@@ -29,7 +29,7 @@ func _on_FrameDelay_value_changed(value):
 	set_giftime.value = length
 	set_giftime.connect("value_changed", Callable(self, "_on_GifTime_value_changed"))
 
-func _on_GifTime_value_changed(value):
+func _on_GifTime_value_changed(value) -> void:
 	length = value
 	frame_delay = length/frames
 	
@@ -37,7 +37,7 @@ func _on_GifTime_value_changed(value):
 	set_delay.value = frame_delay
 	set_delay.connect("value_changed", Callable(self, "_on_FrameDelay_value_changed"))
 
-func _on_GifFrameCount_value_changed(value):
+func _on_GifFrameCount_value_changed(value) -> void:
 	frames = value
 	frame_delay = length/frames
 	

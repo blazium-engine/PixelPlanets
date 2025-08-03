@@ -31,12 +31,12 @@ const MedianCutQuantization = preload("res://addons/gdgifexporter/quantization/m
 	"Star": preload("res://Planets/Star/Star.tscn"),
 }
 var pixels = 100.0
-var sd = 0
+var sd : int = 0
 var colors = []
-var should_dither = true
-var chosen_type = "Terran Wet"
+var should_dither : bool = true
+var chosen_type : String = "Terran Wet"
 
-func _ready():
+func _ready() -> void:
 	for k in planets.keys():
 		optionbutton.add_item(k)
 	layeroptions.get_popup().connect("id_pressed", Callable(self, "_on_layer_selected"))
@@ -46,24 +46,24 @@ func _ready():
 	_create_new_planet(planets["Terran Wet"])
 
 
-func _on_OptionButton_item_selected(index):
+func _on_OptionButton_item_selected(index) -> void:
 	chosen_type = planets.keys()[index]
 	var chosen_planet = planets[chosen_type]
 	_create_new_planet(chosen_planet)
 	_close_picker()
 
-func _on_SliderRotation_value_changed(value):
+func _on_SliderRotation_value_changed(value) -> void:
 	viewport_planet.get_child(0).set_rotates(value)
 
-func _on_LineEdit_text_changed(new_text):
+func _on_LineEdit_text_changed(new_text) -> void:
 	call_deferred("_make_from_seed", int(new_text))
 
-func _make_from_seed(new_seed):
+func _make_from_seed(new_seed : int) -> void:
 	sd = new_seed
 	seed(sd)
 	viewport_planet.get_child(0).set_seed(sd)
 
-func _create_new_planet(type):
+func _create_new_planet(type) -> void:
 	for c in viewport_planet.get_children():
 		c.queue_free()
 	
@@ -99,17 +99,17 @@ func _create_new_planet(type):
 			viewport_tex.size = Vector2(300,300)
 			set_planet_holder_margin(0)
 
-func set_planet_holder_margin(margin_value):
+func set_planet_holder_margin(margin_value) -> void:
 	$HBoxContainer/PlanetHolder.add_theme_constant_override("margin_top", margin_value)
 	$HBoxContainer/PlanetHolder.add_theme_constant_override("margin_bottom", margin_value)
 	$HBoxContainer/PlanetHolder.add_theme_constant_override("margin_left", margin_value)
 	$HBoxContainer/PlanetHolder.add_theme_constant_override("margin_right", margin_value)
 
-func _on_layer_selected(id):
+func _on_layer_selected(id) -> void:
 	viewport_planet.get_child(0).toggle_layer(id)
 	_make_layer_selection(viewport_planet.get_child(0))
 
-func _make_layer_selection(planet):
+func _make_layer_selection(planet) -> void:
 	var layers = planet.get_layers()
 	layeroptions.get_popup().clear()
 	var i = 0
@@ -118,7 +118,7 @@ func _make_layer_selection(planet):
 		layeroptions.get_popup().set_item_checked(i, l.visible)
 		i+=1
 
-func _make_color_buttons():
+func _make_color_buttons() -> void:
 	for b in colorholder.get_children():
 		b.queue_free()
 	
@@ -132,28 +132,29 @@ func _make_color_buttons():
 		
 		colorholder.add_child(b)
 
-func _on_colorbutton_pressed(button):
+func _on_colorbutton_pressed(button) -> void:
 	for b in colorholder.get_children():
 		b.is_active = false
 	button.is_active = true
 	$Panel.visible = true
 	picker.color = button.own_color
 
-func _on_colorbutton_color_picked(color, index):
-	colors[index] = color
-	viewport_planet.get_child(0).set_colors(colors)
+func _on_colorbutton_color_picked(color : Color, index : int) -> void:
+	if colors.size() > index:
+		colors[index] = color
+		viewport_planet.get_child(0).set_colors(colors)
 
-func _seed_random():
+func _seed_random() -> void:
 	randomize()
 	sd = randi()
 	seed(sd)
 	seedtext.text = str(sd)
 	viewport_planet.get_child(0).set_seed(sd)
 
-func _on_Button_pressed():
+func _on_Button_pressed() -> void:
 	_seed_random()
 
-func _on_ExportPNG_pressed():
+func _on_ExportPNG_pressed() -> void:
 	var planet = viewport_planet.get_child(0)
 	var tex = viewport.get_texture().get_image()
 	var image = Image.create(pixels * planet.relative_scale, pixels * planet.relative_scale, false, Image.FORMAT_RGBA8)
@@ -164,7 +165,7 @@ func _on_ExportPNG_pressed():
 	
 	save_image(image, chosen_type + " - " + str(sd))
 
-func export_spritesheet(sheet_size, progressbar, pixel_margin = 0.0):
+func export_spritesheet(sheet_size, progressbar, pixel_margin = 0.0) -> void:
 	var planet = viewport_planet.get_child(0)
 	progressbar.max_value = sheet_size.x * sheet_size.y
 	var sheet = Image.create(pixels * sheet_size.x * planet.relative_scale + sheet_size.x*pixel_margin + pixel_margin,
@@ -194,7 +195,7 @@ func export_spritesheet(sheet_size, progressbar, pixel_margin = 0.0):
 	save_image(sheet, chosen_type + " - " + str(sd) + " - spritesheet")
 	$Popup.visible = false
 
-func save_image(img, file_name):
+func save_image(img, file_name) -> void:
 	if OS.has_feature('web'):
 		JavaScriptBridge.download_buffer(img.save_png_to_buffer(), file_name, "image/png")
 	else:
@@ -203,33 +204,36 @@ func save_image(img, file_name):
 		else:
 			img.save_png("res://%s.png"%file_name)
 
-func _on_ExportSpriteSheet_pressed():
+func _on_ExportSpriteSheet_pressed() -> void:
 	$Panel.visible = false
 	$Popup.visible = true
 	$Popup.set_pixels(pixels * viewport_planet.get_child(0).relative_scale)
 
-func _on_PickerExit_pressed():
+func _on_PickerExit_pressed() -> void:
 	_close_picker()
 
-func _close_picker():
+func _close_picker() -> void:
 	$Panel.visible = false
 	for b in colorholder.get_children():
 		b.is_active = false
 
 
-func _on_RandomizeColors_pressed():
+func _on_RandomizeColors_pressed() -> void:
 	viewport_planet.get_child(0).randomize_colors()
 	colors = viewport_planet.get_child(0).get_colors()
 	for i in colorholder.get_child_count():
-		colorholder.get_child(i).set_color(colors[i])
+		if colors.size() > i:
+			colorholder.get_child(i).set_color(colors[i])
+		else:
+			colorholder.get_child(i).set_color(Color(0,0,0,0))
 
-func _on_ResetColors_pressed():
+func _on_ResetColors_pressed() -> void:
 	viewport_planet.get_child(0).set_colors(viewport_planet.get_child(0).original_colors)
 	colors = viewport_planet.get_child(0).get_colors()
 	for i in colorholder.get_child_count():
 		colorholder.get_child(i).set_color(colors[i])
 
-func _on_ShouldDither_pressed():
+func _on_ShouldDither_pressed() -> void:
 	should_dither = !should_dither
 	if should_dither:
 		dither_button.text = "On"
@@ -237,12 +241,12 @@ func _on_ShouldDither_pressed():
 		dither_button.text = "Off"
 	viewport_planet.get_child(0).set_dither(should_dither)
 
-func _on_ExportGIF_pressed():
+func _on_ExportGIF_pressed() -> void:
 	$GifPopup.visible = true
 	cancel_gif = false
 
-var cancel_gif = false
-func export_gif(frames, frame_delay, progressbar):
+var cancel_gif : bool = false
+func export_gif(frames, frame_delay, progressbar) -> void:
 	var planet = viewport_planet.get_child(0)
 	var exporter = GIFExporter.new(pixels*planet.relative_scale, pixels*planet.relative_scale)
 	progressbar.max_value = frames
@@ -292,10 +296,10 @@ func export_gif(frames, frame_delay, progressbar):
 	progressbar.visible = false
 
 
-func _on_GifPopup_cancel_gif():
+func _on_GifPopup_cancel_gif() -> void:
 	cancel_gif = true
 
-func _on_InputPixels_text_changed(text):
+func _on_InputPixels_text_changed(text) -> void:
 	pixels = int(text)
 	pixels = clamp(pixels, 12, 5000)
 	if (int(text) > 5000):
@@ -309,18 +313,18 @@ func _on_InputPixels_text_changed(text):
 	await get_tree().process_frame
 	viewport.size = Vector2(pixels, pixels) * p.relative_scale
 
-func _on_ImportExportColors_pressed():
+func _on_ImportExportColors_pressed() -> void:
 	colors = viewport_planet.get_child(0).get_colors()
 	$ImportExportPopup.set_current_colors(colors)
 	$ImportExportPopup.show_popup()
-	
-func _on_import_colors_set(i_colors):
+
+func _on_import_colors_set(i_colors) -> void:
 	viewport_planet.get_child(0).set_colors(i_colors)
 	for i in colorholder.get_child_count():
 		colorholder.get_child(i).set_color(i_colors[i])
 
 
-func _on_planet_holder_gui_input(event):
+func _on_planet_holder_gui_input(event) -> void:
 	if (event is InputEventMouseMotion || event is InputEventScreenTouch) && Input.is_action_pressed("mouse"):
 		var normal = event.position / $HBoxContainer/PlanetHolder.size
 		viewport_planet.get_child(0).set_light(normal)
