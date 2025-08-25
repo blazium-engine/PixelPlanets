@@ -1,11 +1,12 @@
 [gd_scene load_steps=7 format=3 uid="uid://deyy6w0ssnedu"]
 
-[ext_resource type="PackedScene" path="res://Planets/Planet.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://dfglp10e3v2cq" path="res://Planets/Planet.tscn" id="1"]
 [ext_resource type="Shader" uid="uid://bswnv37nsb1x7" path="res://Planets/NoAtmosphere/NoAtmosphere.gdshader" id="2"]
 [ext_resource type="Shader" uid="uid://cmkki8t1d7t7a" path="res://Planets/NoAtmosphere/Craters.gdshader" id="3"]
 [ext_resource type="Script" uid="uid://qef0rno2vuno" path="res://Planets/NoAtmosphere/NoAtmosphere.gd" id="4"]
 
 [sub_resource type="ShaderMaterial" id="1"]
+resource_local_to_scene = true
 shader = ExtResource("2")
 shader_parameter/pixels = 100.0
 shader_parameter/rotation = 0.0
@@ -22,6 +23,7 @@ shader_parameter/time = 0.0
 shader_parameter/should_dither = true
 
 [sub_resource type="ShaderMaterial" id="2"]
+resource_local_to_scene = true
 shader = ExtResource("3")
 shader_parameter/pixels = 87.419
 shader_parameter/rotation = 0.0
@@ -34,13 +36,8 @@ shader_parameter/seed = 4.517
 shader_parameter/time = 0.0
 
 [node name="NoAtmosphere" instance=ExtResource("1")]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 3
-anchors_preset = 15
-offset_right = -412.0
-offset_bottom = -200.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 100.0
+offset_bottom = 100.0
 script = ExtResource("4")
 
 [node name="Ground" type="ColorRect" parent="." index="0"]

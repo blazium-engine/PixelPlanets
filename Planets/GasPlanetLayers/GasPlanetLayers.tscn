@@ -1,11 +1,12 @@
 [gd_scene load_steps=7 format=3 uid="uid://b47dpsuy2ch3g"]
 
-[ext_resource type="PackedScene" path="res://Planets/Planet.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://dfglp10e3v2cq" path="res://Planets/Planet.tscn" id="1"]
 [ext_resource type="Script" uid="uid://c26e805wgi0xo" path="res://Planets/GasPlanetLayers/GasPlanetLayers.gd" id="2"]
 [ext_resource type="Shader" uid="uid://dnaea2y1u8esx" path="res://Planets/GasPlanetLayers/Ring.gdshader" id="3"]
 [ext_resource type="Shader" uid="uid://bq25q7w4eokvp" path="res://Planets/GasPlanetLayers/GasLayers.gdshader" id="4"]
 
 [sub_resource type="ShaderMaterial" id="5"]
+resource_local_to_scene = true
 shader = ExtResource("4")
 shader_parameter/pixels = 100.0
 shader_parameter/rotation = 0.0
@@ -27,6 +28,7 @@ shader_parameter/seed = 6.314
 shader_parameter/time = 0.0
 
 [sub_resource type="ShaderMaterial" id="6"]
+resource_local_to_scene = true
 shader = ExtResource("3")
 shader_parameter/pixels = 300.0
 shader_parameter/rotation = 0.7
@@ -45,14 +47,9 @@ shader_parameter/OCTAVES = 4
 shader_parameter/seed = 8.461
 shader_parameter/time = 0.0
 
-[node name="Planet" instance=ExtResource("1")]
-custom_minimum_size = Vector2(0, 0)
-layout_mode = 3
-anchors_preset = 15
-offset_right = -412.0
-offset_bottom = -200.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="GasPlanetRinged" instance=ExtResource("1")]
+offset_right = 100.0
+offset_bottom = 100.0
 script = ExtResource("2")
 relative_scale = 3.0
 gui_zoom = 2.5

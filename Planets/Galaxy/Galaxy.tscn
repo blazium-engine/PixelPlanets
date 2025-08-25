@@ -1,10 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://bgah3ujav5t77"]
 
-[ext_resource type="PackedScene" path="res://Planets/Planet.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://dfglp10e3v2cq" path="res://Planets/Planet.tscn" id="1"]
 [ext_resource type="Shader" uid="uid://rlo70uqqkfsw" path="res://Planets/Galaxy/Galaxy.gdshader" id="2"]
 [ext_resource type="Script" uid="uid://cd7nrrxofapm2" path="res://Planets/Galaxy/Galaxy.gd" id="3"]
 
 [sub_resource type="ShaderMaterial" id="4"]
+resource_local_to_scene = true
 shader = ExtResource("2")
 shader_parameter/pixels = 200.0
 shader_parameter/rotation = 0.674
@@ -24,18 +25,11 @@ shader_parameter/zoom = 1.375
 shader_parameter/swirl = -9.0
 
 [node name="Galaxy" instance=ExtResource("1")]
-custom_minimum_size = Vector2(0, 0)
-layout_mode = 3
-anchors_preset = 15
-offset_right = -412.0
-offset_bottom = -200.0
-grow_horizontal = 2
-grow_vertical = 2
 script = ExtResource("3")
 gui_zoom = 2.5
 
 [node name="Galaxy" type="ColorRect" parent="." index="0"]
 material = SubResource("4")
 layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
+offset_right = 200.0
+offset_bottom = 200.0
