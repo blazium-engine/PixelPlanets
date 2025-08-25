@@ -1,4 +1,4 @@
-extends "res://Planets/Planet.gd"
+extends PixelPlanet
 
 func set_pixels(amount : int) -> void:
 	$Cloud.material.set_shader_parameter("pixels", amount)
@@ -50,4 +50,3 @@ func randomize_colors() -> void:
 		cols2.append(new_col)
 
 	set_colors(cols1 + cols2)
-

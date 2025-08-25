@@ -1,4 +1,4 @@
-extends "res://Planets/Planet.gd"
+extends PixelPlanet
 
 func set_pixels(amount : int) -> void:
 	$Blobs.material.set_shader_parameter("pixels", amount*relative_scale)

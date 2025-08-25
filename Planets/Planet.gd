@@ -1,4 +1,5 @@
 extends Control
+class_name PixelPlanet
 
 var time : float = 1000.0
 var override_time : bool = false
